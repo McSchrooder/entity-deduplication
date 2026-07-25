@@ -1,0 +1,32 @@
+# env / secrets
+.env
+*.pem
+*keyfile
+pwfile
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# ide
+.idea/
+.vscode/
+
+# corpus & artifacts
+data/*
+!data/results/
+data/results/*
+!data/results/summary_*.json
+!data/results/blocking_*.json
+!data/results/latency/
+data/results/latency/*
+!data/results/latency/summary_*.json
+models/
+*.jsonl
+*.npy
+*.pth
+*.onnx
+
