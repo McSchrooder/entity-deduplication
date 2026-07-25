@@ -66,8 +66,8 @@ bootstrap CI that resamples whole clusters.
 
 | mode | recall | Exact | Fuzzy | NameDiff |
 |---|---|---|---|---|
-| lexical | 0.9941 | 1.0000 | 0.9907 | 0.9650 |
-| vector | 0.9945 | 1.0000 | 0.9914 | 0.9831 |
+| lexical | 0.9951 | 1.0000 | 0.9924 | 0.9715 |
+| vector | 0.9934 | 1.0000 | 0.9897 | 0.9754 |
 | hybrid | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
 
 
@@ -81,24 +81,24 @@ Pair Completeness per mode:
 
 | k | lexical | vector | hybrid |
 |---|---|---|---|
-| 10 | 0.9526 | 0.9553 | 0.9651 |
-| 25 | 0.9869 | 0.9845 | 0.9936 |
-| 50 | 0.9894 | 0.9905 | 0.9987 |
-| 100 | 0.9924 | 0.9932 | 0.9992 |
-| 150 | 0.9941 | 0.9945 | 0.9998 |
+| 10 | 0.9543 | 0.9547 | 0.9651 |
+| 25 | 0.9879 | 0.9835 | 0.9939 |
+| 50 | 0.9900 | 0.9896 | 0.9992 |
+| 100 | 0.9932 | 0.9922 | 0.9996 |
+| 150 | 0.9951 | 0.9934 | 0.9998 |
 
 `scripts/blocking.py` is the
 tuning script for the retrieval knobs.
 
 ### Resolvers (hybrid retrieval, k=150, rerank top-50, 3,000 queries)
 
-| resolver | precision | recall | F1 | operational recall |
-|---|---|---|---|---|
-| **nn** (comparison features into a calibrated MLP) | **0.949** | **0.999** | **0.973** | 0.999 |
-| heuristic (schema-role rules) | 0.944 | 0.999 | 0.971 | 0.999 |
-| heuristic, lexical-only retrieval, no GPU (1,000-query run) | 0.941 | 0.989 | 0.964 | 0.989 |
-| llm, gemini-3.1-flash-lite (top-10) | 1.000 | 0.958 | 0.979 | 0.958 |
-| cross-encoder (1,000-query run) | 0.670 | 0.992 | 0.800 | 0.992 |
+| resolver | precision | recall | F1 | Exact R | Fuzzy R | NameDiff R |
+|---|---|---|---|---|---|---|
+| **nn** (comparison features into a calibrated MLP) | **0.949** | **0.999** | **0.973** | 1.000 | 0.999 | **0.995** |
+| heuristic (schema-role rules) | 0.944 | 0.999 | 0.971 | 1.000 | 0.998 | 0.994 |
+| heuristic, lexical-only retrieval, no GPU (1,000-query run) | 0.941 | 0.989 | 0.965 | | | |
+| llm, gemini-3.1-flash-lite (20-query smoke, top-10) | 1.000 | 0.958 | 0.979 | | | |
+| cross-encoder (1,000-query run) | 0.670 | 0.992 | 0.800 | | | |
 
 
 ### Cluster level
@@ -130,9 +130,9 @@ excluded as warmup.
 
 | stage | p50 | p95 | p99 |
 |---|---|---|---|
-| retrieval, lexical | 13.2 ms | 18.8 ms | 25.7 ms |
-| retrieval, vector | 77.0 ms | 106.1 ms | 144.7 ms |
-| retrieval, hybrid | 96.9 ms | 151.1 ms | 209.4 ms |
+| retrieval, lexical | 13.9 ms | 18.6 ms | 24.7 ms |
+| retrieval, vector | 79.4 ms | 96.2 ms | 110.6 ms |
+| retrieval, hybrid | 97.9 ms | 124.3 ms | 162.3 ms |
 | resolving, heuristic | 2.6 ms | 6.6 ms | 8.5 ms |
 | resolving, nn | 4.3 ms | 5.8 ms | 6.7 ms |
 | resolving, cross-encoder | ~115 ms | ~146 ms | ~165 ms |
