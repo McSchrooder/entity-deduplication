@@ -1,0 +1,17 @@
+services:
+  vespa:
+    image: vespaengine/vespa
+    hostname: node1
+    ports:
+      - "8080:8080"
+      - "19071:19071"
+    volumes:
+      - vespa_data:/opt/vespa/var
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-f", "http://localhost:19071/ApplicationStatus"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+volumes:
+  vespa_data:

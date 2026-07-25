@@ -1,0 +1,17 @@
+# Start with: docker compose -f docker/mongo/compose.yml up -d --wait
+services:
+  mongodb:
+    image: mongodb/mongodb-atlas-local:latest
+    environment:
+      - DO_NOT_TRACK=1
+    ports:
+      - "27018:27017"
+    volumes:
+      - data:/data/db
+      - configdb:/data/configdb
+      - mongot:/data/mongot
+
+volumes:
+  data:
+  configdb:
+  mongot:
