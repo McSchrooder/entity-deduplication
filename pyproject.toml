@@ -16,7 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 mongo = ["pymongo>=4.7"]
-qdrant = ["qdrant-client>=1.9"]
+qdrant = ["qdrant-client>=1.19.0"]
 vespa = ["pyvespa>=0.45"]
 ml = [
     "torch>=2.3",
